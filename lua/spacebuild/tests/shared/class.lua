@@ -24,7 +24,7 @@ local lu = luaunit
 
 TestClasses = {} --class
 function TestClasses:setUp()
-	self.resourceRegistry = class.new("rd/ResourceRegistry", class)
+	self.resourceRegistry = class.new("rd/ResourceRegistry")
 	self.resourceRegistry:registerResourceInfo(1, "energy", "Energy", { "ENERGY" })
 	self.resourceRegistry:registerResourceInfo(2, "oxygen", "Oxygen", { "GAS" })
 	self.resourceRegistry:registerResourceInfo(3, "water", "Water", { "LIQUID", "COOLANT" })
@@ -44,15 +44,15 @@ function TestClasses:testClasses()
 	lu.assertTrue(obj:isA("Resource"))
 	lu.assertEquals(obj:getName(), "resource_name")
 
-	local network1 = class.new("rd/ResourceNetwork", 1, resourceRegistry, class)
-	local network2 = class.new("rd/ResourceNetwork", 2, resourceRegistry, class)
-	local network3 = class.new("rd/ResourceNetwork", 3, resourceRegistry, class)
-	local ent1 = class.new("rd/ResourceEntity", 10, resourceRegistry, class)
-	local ent2 = class.new("rd/ResourceEntity", 11, resourceRegistry, class)
-	local ent3 = class.new("rd/ResourceEntity", 12, resourceRegistry, class)
-	local ent4 = class.new("rd/ResourceEntity", 13, resourceRegistry, class)
-	local ent5 = class.new("rd/ResourceEntity", 14, resourceRegistry, class)
-	local ent6 = class.new("rd/ResourceEntity", 15, resourceRegistry, class)
+	local network1 = class.new("rd/ResourceNetwork", 1, resourceRegistry)
+	local network2 = class.new("rd/ResourceNetwork", 2, resourceRegistry)
+	local network3 = class.new("rd/ResourceNetwork", 3, resourceRegistry)
+	local ent1 = class.new("rd/ResourceEntity", 10, resourceRegistry)
+	local ent2 = class.new("rd/ResourceEntity", 11, resourceRegistry)
+	local ent3 = class.new("rd/ResourceEntity", 12, resourceRegistry)
+	local ent4 = class.new("rd/ResourceEntity", 13, resourceRegistry)
+	local ent5 = class.new("rd/ResourceEntity", 14, resourceRegistry)
+	local ent6 = class.new("rd/ResourceEntity", 15, resourceRegistry)
 
 	--Test entity 1
 	ent1:addResource("energy", 10000)

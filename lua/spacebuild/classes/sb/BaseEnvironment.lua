@@ -19,7 +19,6 @@ local net = sbnet
 local C = CLASS
 
 local GM = SPACEBUILD
-local class = GM.class
 
 --- General class function to check is this class is of a certain type
 -- @param className the classname to check against
@@ -36,6 +35,7 @@ function C:init(entid, data)
 	self.entid = entid
 	self.data = data
 
+	self.temperature = 0
 	self.temperature = 0
 	self.gravity = 0
 	self.atmosphere = 0
@@ -174,7 +174,7 @@ function C:convertResource(from, to, amount)
 	local res_to = self.resources[to]
 	local not_enough = 0
 	if not res_to then
-		res_to = class.new("rd/Resource", to, self:getMaxAmountOfResources(), 0)
+		res_to = self.classLoader.new("rd/Resource", to, self:getMaxAmountOfResources(), 0)
 		self.resources[to] = res_to
 	end
 	if not from then
@@ -291,7 +291,7 @@ function C:receive()
 		id = net.readTiny()
 		name = GM:getResourceInfoFromID(id):getName()
 		if not self.resources[name] then
-			self.resources[name] = class.new("rd/Resource", name)
+			self.resources[name] = self.classLoader.new("rd/Resource", name)
 		end
 		self.resources[name]:receive()
 	end
@@ -300,8 +300,3 @@ function C:receive()
 		self:addAttribute(net.ReadString())
 	end
 end
-
-
-
-
-

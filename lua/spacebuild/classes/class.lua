@@ -59,7 +59,9 @@ function class.new(name, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s
 		if not class.exists(name) then
 			error("Class " .. name .. " not found")
 		end
-		local class = {}
+		local class = {
+			classLoader : class
+		}
 		class.__index = class
 		CLASS = class
 		openClass(name)

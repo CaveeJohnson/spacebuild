@@ -15,7 +15,7 @@ local lu = luaunit
 TestRD = {} --class
 local TestRD = TestRD
 function TestRD:setUp()
-    self.resourceRegistry = class.new("rd/ResourceRegistry", class)
+    self.resourceRegistry = class.new("rd/ResourceRegistry")
     self.resourceRegistry:registerResourceInfo(1, "energy", "Energy", { "ENERGY" })
     self.resourceRegistry:registerResourceInfo(2, "oxygen", "Oxygen", { "GAS" })
     self.resourceRegistry:registerResourceInfo(3, "water", "Water", { "LIQUID", "COOLANT" })
@@ -65,7 +65,7 @@ function TestRD:testResource()
 end
 
 function TestRD:testResourceEntity()
-    local ent = class.new("rd/ResourceEntity", 10, self.resourceRegistry, class)
+    local ent = class.new("rd/ResourceEntity", 10, self.resourceRegistry)
 
     lu.assertEquals(ent:getMaxResourceAmount("energy"), 0)
     lu.assertEquals(ent:getResourceAmount("energy"), 0)

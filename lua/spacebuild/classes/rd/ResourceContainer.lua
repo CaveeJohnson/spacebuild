@@ -36,11 +36,10 @@ function C:isA(className)
 	return className == "ResourceContainer"
 end
 
-function C:init(syncid, resourceRegistry, classLoader)
+function C:init(syncid, resourceRegistry)
 	if not resourceRegistry then error("Resource requires a reference to the resourceRegistry!") end
 	if not classLoader then error("Resource requires a reference to the classLoader!") end
 	self.resourceRegistry = resourceRegistry
-	self.classLoader = classLoader
 	self.syncid = syncid
 	self.resources = {}
 	self.delta = 0

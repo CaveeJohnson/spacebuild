@@ -51,9 +51,9 @@ function C:isA(className)
 	return funcRef.isA(self, className) or className == "ResourceEntity"
 end
 
-function C:init(entID, resourceRegistry, classLoader)
+function C:init(entID, resourceRegistry)
 	if entID and type(entID) ~= "number" then error("You have to supply the entity id or nil to create a ResourceEntity") end
-	funcRef.init(self, entID, resourceRegistry, classLoader)
+	funcRef.init(self, entID, resourceRegistry)
 	self.network = nil
 end
 

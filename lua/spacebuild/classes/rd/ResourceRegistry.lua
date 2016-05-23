@@ -8,9 +8,7 @@ function C:isA(className)
     return className == "ResourceRegistry"
 end
 
-function C:init(classLoader)
-    if not classLoader then error("Resource requires a reference to the classLoader!") end
-    self.classLoader = classLoader
+function C:init()
     self.resources_names_table = {}
     self.resources_ids_table = {}
 end
