@@ -266,16 +266,16 @@ function C:_sendContent(modified)
 	net.WriteString(self.name)
 	net.writeShort(self.nighttemperature)
 	if self.color_id then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.WriteString(self.color_id)
 	else
-		net.writeBool(false)
+		net.WriteBool(false)
 	end
 	if self.bloom_id then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.WriteString(self.bloom_id)
 	else
-		net.writeBool(false)
+		net.WriteBool(false)
 	end
 end
 
@@ -285,10 +285,10 @@ function C:receive()
 	funcRef.receiveSignal(self)
 	self.name = net.ReadString()
 	self.nighttemperature = net.readShort()
-	if net.readBool() then
+	if net.ReadBool() then
 		self.color_id = net.ReadString()
 	end
-	if net.readBool() then
+	if net.ReadBool() then
 		self.bloom_id = net.ReadString()
 	end
 end

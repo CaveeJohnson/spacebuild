@@ -271,7 +271,7 @@ function C:send(modified)
 	if self.modified > modified then
 		self.firstSync = false
 		net.Start("SBRPU")
-		net.writeBool(self.active)
+		net.WriteBool(self.active)
 		net.writeTiny(self.breath)
 		if self.active then
 			net.writeShort(self.oxygen)
@@ -280,10 +280,10 @@ function C:send(modified)
 			net.writeShort(self.temperature)
 		end
 		if self.environment then
-			net.writeBool(true)
+			net.WriteBool(true)
 			net.writeShort(self.environment:getID())
 		else
-			net.writeBool(false)
+			net.WriteBool(false)
 		end
 		net.Send(self.ply)
 	end
@@ -292,7 +292,7 @@ end
 --- Sync function to receive data from the server to this client
 --
 function C:receive()
-	self.active = net.readBool()
+	self.active = net.ReadBool()
 	self.breath = net.readTiny()
 	if self.active then
 		self.oxygen = net.readShort()
@@ -300,7 +300,7 @@ function C:receive()
 		self.energy = net.readShort()
 		self.temperature = net.readShort()
 	end
-	local hasenvironment = net.readBool()
+	local hasenvironment = net.ReadBool()
 	if hasenvironment then
 		self.environment = GM:getEnvironment(net.readShort())
 	end

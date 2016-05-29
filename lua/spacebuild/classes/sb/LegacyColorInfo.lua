@@ -97,20 +97,20 @@ end
 --
 function C:_sendContent(modified)
 	if self.addColor then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.WriteFloat(self.addColor.r)
 		net.WriteFloat(self.addColor.g)
 		net.WriteFloat(self.addColor.b)
 	else
-		net.writeBool(false)
+		net.WriteBool(false)
 	end
 	if self.mulColor then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.WriteFloat(self.mulColor.r or -1)
 		net.WriteFloat(self.mulColor.g or -1)
 		net.WriteFloat(self.mulColor.b or -1)
 	else
-		net.writeBool(false)
+		net.WriteBool(false)
 	end
 	net.WriteFloat(self.brightness)
 	net.WriteFloat(self.contrast)
@@ -122,7 +122,7 @@ end
 function C:receive()
 	self.addColor = self.addColor or {}
 	self.mulColor = self.mulColor or {}
-	if net.readBool() then
+	if net.ReadBool() then
 		self.addColor.r = net.ReadFloat()
 		self.addColor.g = net.ReadFloat()
 		self.addColor.b = net.ReadFloat()
@@ -131,7 +131,7 @@ function C:receive()
 		self.addColor.g = 0
 		self.addColor.b = 0
 	end
-	if net.readBool() then
+	if net.ReadBool() then
 		self.mulColor.r = net.ReadFloat()
 		self.mulColor.g = net.ReadFloat()
 		self.mulColor.b = net.ReadFloat()

@@ -32,6 +32,7 @@ BytesWritten = net.BytesWritten
 Incoming = net.Incoming
 ReadAngle = net.ReadAngle
 ReadBit = net.ReadBit
+ReadBool = net.ReadBool
 ReadData = net.ReadData
 ReadDouble = net.ReadDouble
 ReadEntity = net.ReadEntity
@@ -58,6 +59,7 @@ WriteDouble = net.WriteDouble
 WriteEntity = net.WriteEntity
 WriteFloat = net.WriteFloat
 WriteInt = net.WriteInt
+WriteUInt = net.WriteUInt
 WriteNormal = net.WriteNormal
 WriteString = net.WriteString
 WriteTable = net.WriteTable
@@ -90,20 +92,17 @@ local TYPES_INT = {
 }
 
 -- Write
-function writeBool(bool)
-	net.WriteBit(bool)
-end
 
 function writeShort(short)
-	net.WriteInt(short, TYPES_INT.SHORT.length)
+	WriteInt(short, TYPES_INT.SHORT.length)
 end
 
 function writeLong(long)
-	net.WriteInt(long, TYPES_INT.INT.length)
+	WriteInt(long, TYPES_INT.INT.length)
 end
 
 function writeTiny(tiny)
-	net.WriteInt(tiny, TYPES_INT.TINY.length)
+	WriteInt(tiny, TYPES_INT.TINY.length)
 end
 
 function writeAmount(amount)
@@ -116,29 +115,26 @@ function writeAmount(amount)
 	else
 		writeBool(false)
 	end
-	net.WriteUInt(amount, TYPES_INT.INT.length)
+	WriteUInt(amount, TYPES_INT.INT.length)
 end
 
 -- Read
-function readBool()
-	return net.ReadBit() == 1
-end
 
 function readShort()
-	return net.ReadInt(TYPES_INT.SHORT.length)
+	return ReadInt(TYPES_INT.SHORT.length)
 end
 
 function readLong()
-	return net.ReadInt(TYPES_INT.INT.length)
+	return ReadInt(TYPES_INT.INT.length)
 end
 
 function readTiny()
-	return net.ReadInt(TYPES_INT.TINY.length)
+	return ReadInt(TYPES_INT.TINY.length)
 end
 
 function readAmount()
 	local base = 0
-	if readBool() then
+	if ReadBool() then
 		base = readTiny() * TYPES_INT.INT.max
 	end
 	return base + net.ReadUInt(TYPES_INT.INT.length)

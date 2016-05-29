@@ -216,22 +216,22 @@ end
 --
 function C:_sendContent(modified)
 	if self.containersmodified > modified then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.writeShort(table.Count(self.containers))
 		for k, _ in pairs(self.containers) do
 			net.writeShort(k)
 		end
 	else
-		net.writeBool(false)
+		net.WriteBool(false)
 	end
 	if self.networksmodified > modified then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.writeShort(table.Count(self.networks))
 		for k, _ in pairs(self.networks) do
 			net.writeShort(k)
 		end
 	else
-		net.writeBool(false)
+		net.WriteBool(false)
 	end
 	funcRef.sendContent(self, modified)
 end
@@ -239,7 +239,7 @@ end
 --- Sync function to receive data from the server to this client
 --
 function C:receive()
-	local hasContainerUpdate = net.readBool()
+	local hasContainerUpdate = net.ReadBool()
 	if hasContainerUpdate then
 		local nrofcontainers = net.readShort()
 		self.containers = {}
@@ -250,7 +250,7 @@ function C:receive()
 			self.containers[id] = GM:getDeviceInfo(id)
 		end
 	end
-	local hasNetworksUpdate = net.readBool()
+	local hasNetworksUpdate = net.ReadBool()
 	if hasNetworksUpdate then
 		local nrofnetworks = net.readShort()
 		self.networks = {}

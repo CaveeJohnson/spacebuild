@@ -129,26 +129,26 @@ end
 function C:send(modified)
 	net.writeTiny(self.resourceInfo:getID())
 	if self.modified > modified then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.writeAmount(self.amount)
 	else
-		net.writeBool(false) --not modified since last update
+		net.WriteBool(false) --not modified since last update
 	end
 	if self.modifiedMaxAmount > modified then
-		net.writeBool(true)
+		net.WriteBool(true)
 		net.writeAmount(self.maxAmount)
 	else
-		net.writeBool(false) --not modified since last update
+		net.WriteBool(false) --not modified since last update
 	end
 end
 
 --- Sync function to receive data from the server to this client
 --
 function C:receive()
-	if net.readBool() then
+	if net.ReadBool() then
 		self.amount = net.readAmount()
 	end
-	if net.readBool() then
+	if net.ReadBool() then
 		self.maxAmount = net.readAmount()
 	end
 end
