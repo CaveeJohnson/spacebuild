@@ -121,11 +121,11 @@ local function LoadAddonStatus( addon, defaultstatus )
 end
 
 local function OnEntitySpawn(ent , enttype , ply)
-	if ent == NULL then
+	if not IsValid(ent) then
 		return
 	end	
-	ent.caf = ent.caf or {}
-	ent.caf.custom = ent.caf.custom or {}
+	ent.caf = ent.caf or {} -- should already exist
+	ent.caf.custom = ent.caf.custom or {} -- should already exist
 	if ent.caf.custom.canreceivedamage == nil then
 		ent.caf.custom.canreceivedamage = true
 	end
@@ -139,6 +139,16 @@ local function OnEntitySpawn(ent , enttype , ply)
 		end
 	end
 end
+
+local function OnEntityCreated(ent)
+	if not IsValid(ent) then
+		return
+	end	
+	ent.caf = ent.caf or {}
+	ent.caf.custom = ent.caf.custom or {}
+end
+
+hook.Add("OnEntityCreated", "CAF Entity Created", OnEntityCreated)
 
 local function  OnAddonDestruct(name)
 	if not name then return end
